@@ -2,7 +2,7 @@ import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchPage from './modules/SearchPage'
-import ListBookPage from './modules/ListBookPage'
+import BookListPage from './modules/BookListPage'
 
 
 class BooksApp extends React.Component {
@@ -22,7 +22,7 @@ class BooksApp extends React.Component {
                 {this.state.showSearchPage ? (
                     <SearchPage onCloseSearchClick={() => this.setState({showSearchPage: false})}/>
                 ) : (
-                    <ListBookPage onSearchClick={() => this.setState({showSearchPage: true})}/>
+                    <BookListPage onSearchClick={() => this.setState({showSearchPage: true})}/>
                 )}
             </div>
         )

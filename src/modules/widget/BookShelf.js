@@ -14,15 +14,9 @@ export default class BookShelf extends React.Component {
                     <ol className="books-grid">
                         {
                             books.map((book) => (
-                                <li>
+                                <li key={book.id}>
                                     <Book
-                                        bookInfo={
-                                            {
-                                                title: book.title,
-                                                authors: book.authors,
-                                                imageUrl: book.imageUrl
-                                            }
-                                        }
+                                        bookInfo={book}
                                     />
                                 </li>
                             ))
