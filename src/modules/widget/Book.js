@@ -1,7 +1,13 @@
 import React from 'react'
 import BookShelfChanger from "./BookShelfChanger";
+import PropTypes from 'prop-types';
 
 export default class Book extends React.Component {
+
+    propTypes = {
+        bookInfo: PropTypes.object.isRequired,
+        onShelfChange: PropTypes.func.isRequired
+    }
 
     render() {
         const {bookInfo, onShelfChange} = this.props

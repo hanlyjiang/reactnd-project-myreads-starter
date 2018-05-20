@@ -3,7 +3,6 @@ import PageTitle from './widget/PageTitle'
 import OpenSearch from './widget/OpenSearch'
 import BookShelf from './widget/BookShelf'
 import * as BooksAPI from '../BooksAPI'
-import {update} from "../BooksAPI";
 
 export default class BookListPage extends React.Component {
 
@@ -12,7 +11,7 @@ export default class BookListPage extends React.Component {
     }
 
     onShelfChange = (book, toShelf) => {
-        console.log("toShelf:" + toShelf + '; book.title:' + book.title)
+        // console.log("toShelf:" + toShelf + '; book.title:' + book.title)
         BooksAPI.update(book, toShelf)
             .then((res) => {
                 // console.log("changeShelf Response:" + JSON.stringify(res))
@@ -20,9 +19,7 @@ export default class BookListPage extends React.Component {
             })
     }
 
-    /**
-     *
-     */
+
     componentDidMount() {
         this.updateAllData();
     }

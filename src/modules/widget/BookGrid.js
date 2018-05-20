@@ -1,7 +1,13 @@
 import React from 'react'
 import Book from "./Book";
+import PropTypes from "prop-types";
 
 export default class BookGrid extends React.Component {
+
+    propTypes = {
+        bookList: PropTypes.array.isRequired,
+        onShelfChange: PropTypes.func.isRequired
+    }
 
     render() {
         const {bookList: books, onShelfChange} = this.props

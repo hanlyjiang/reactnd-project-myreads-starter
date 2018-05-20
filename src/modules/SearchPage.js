@@ -5,7 +5,6 @@ import BookGrid from "./widget/BookGrid";
 
 
 export default class SearchPage extends React.Component {
-//
 
     state = {
         query: '',

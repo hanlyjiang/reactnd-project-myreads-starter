@@ -1,8 +1,16 @@
 import React from 'react'
 import * as BooksAPI from '../../BooksAPI'
+import PropTypes from "prop-types";
 
 
 export default class BookShelfChanger extends React.Component {
+
+
+    propTypes = {
+        shelfState: PropTypes.string.isRequired,
+        book: PropTypes.object.isRequired
+    }
+
 
     changeBookShelf = (book, toShelf) => {
         BooksAPI.update(book, toShelf)
