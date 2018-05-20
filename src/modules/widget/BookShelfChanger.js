@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 export default class BookShelfChanger extends React.Component {
 
 
-    propTypes = {
+    static propTypes = {
         shelfState: PropTypes.string.isRequired,
         book: PropTypes.object.isRequired
     }

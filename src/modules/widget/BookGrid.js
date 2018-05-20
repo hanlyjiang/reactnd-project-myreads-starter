@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 export default class BookGrid extends React.Component {
 
-    propTypes = {
+    static propTypes = {
         bookList: PropTypes.array.isRequired,
         onShelfChange: PropTypes.func.isRequired
     }
