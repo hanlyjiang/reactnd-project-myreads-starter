@@ -8,7 +8,6 @@ export default class BookListPage extends React.Component {
 
     state = {
         allBooks: [],
-        screen: 'list'// search,list
     }
 
     /**
@@ -34,7 +33,7 @@ export default class BookListPage extends React.Component {
                                    bookList={this.state.allBooks.filter((book) => book.shelf === 'read')}/>
                     </div>
                 </div>
-                <OpenSearch onClick={this.props.onSearchClick}/>
+                <OpenSearch />
             </div>
         )
     }
