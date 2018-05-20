@@ -1,15 +1,36 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import * as BooksAPI from '../BooksAPI'
+import BookGrid from "./widget/BookGrid";
+
 
 export default class SearchPage extends React.Component {
 //
+
+    state = {
+        query: '',
+        queryResults: []
+    }
+
+    onQueryChange = (query) => {
+        BooksAPI.search(query)
+            .then((books) => {
+                this.setState({
+                    query: query,
+                    queryResults: books
+                })
+            })
+    }
+
+    onShelfChange = (book,toShelf) => {
+        console.log("Do nothing when in Search page ")
+    }
+
     render() {
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <Link className="close-search"
-                          to='/'
-                    >Close</Link>
+                    <Link className="close-search" to='/'>Close</Link>
                     <div className="search-books-input-wrapper">
                         {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -19,12 +40,14 @@ export default class SearchPage extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                        <input type="text" placeholder="Search by title or author"/>
-
+                        <input type="text" placeholder="Search by title or author"
+                               onChange={(event) => {
+                                   this.onQueryChange(event.target.value)
+                               }}/>
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid"></ol>
+                    <BookGrid bookList={this.state.queryResults} onShelfChange={this.onShelfChange}/>
                 </div>
             </div>
         )

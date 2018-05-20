@@ -1,27 +1,19 @@
 import React from 'react'
-import Book from "./Book";
+
+import BookGrid from './BookGrid'
 
 
 export default class BookShelf extends React.Component {
 
 
+
     render() {
-        const {shelfName: bookShelfName, bookList: books} = this.props
+        const {shelfName: bookShelfName, bookList: books, onShelfChange} = this.props
         return (
             <div className="bookshelf">
                 <h2 className="bookshelf-title">{bookShelfName}</h2>
                 <div className="bookshelf-books">
-                    <ol className="books-grid">
-                        {
-                            books.map((book) => (
-                                <li key={book.id}>
-                                    <Book
-                                        bookInfo={book}
-                                    />
-                                </li>
-                            ))
-                        }
-                    </ol>
+                    <BookGrid bookList={books} onShelfChange={onShelfChange}/>
                 </div>
             </div>
         )
