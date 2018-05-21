@@ -3,40 +3,36 @@ import * as BooksAPI from '../../BooksAPI'
 import PropTypes from "prop-types";
 
 
-export default class BookShelfChanger extends React.Component {
+export default function BookShelfChanger(props) {
 
-
-    static propTypes = {
-        shelfState: PropTypes.string.isRequired,
-        book: PropTypes.object.isRequired
-    }
-
-
-    changeBookShelf = (book, toShelf) => {
+    var changeBookShelf = (book, toShelf) => {
         BooksAPI.update(book, toShelf)
             .then((res) => {
-                this.props.onShelfChange(book, toShelf)
+                props.onShelfChange(book, toShelf)
             })
     }
 
-    render() {
-        const {shelfState: shelf, book: book} = this.props;
-        return (
-            <div className="book-shelf-changer">
-                <select defaultValue={shelf ? shelf : "none"}
-                        onChange={(event) => {
-                            console.log(event.target.value)
-                            this.changeBookShelf(book, event.target.value)
-                        }}>
-                    <option value="default" disabled>Move to...</option>
-                    <option value="currentlyReading">Currently Reading</option>
-                    <option value="wantToRead">Want to Read</option>
-                    <option value="read">Read</option>
-                    <option value="none">None</option>
-                </select>
-            </div>
+    const {shelf, book} = props;
+    return (
+        <div className="book-shelf-changer">
+            <select defaultValue={shelf ? shelf : "none"}
+                    onChange={(event) => {
+                        console.log(event.target.value)
+                        changeBookShelf(book, event.target.value)
+                    }}>
+                <option value="default" disabled>Move to...</option>
+                <option value="currentlyReading">Currently Reading</option>
+                <option value="wantToRead">Want to Read</option>
+                <option value="read">Read</option>
+                <option value="none">None</option>
+            </select>
+        </div>
 
-        )
-    }
+    )
 
+}
+
+BookShelfChanger.propTypes = {
+    shelf: PropTypes.string.isRequired,
+    book: PropTypes.object.isRequired
 }

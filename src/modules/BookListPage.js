@@ -6,9 +6,13 @@ import * as BooksAPI from '../BooksAPI'
 
 export default class BookListPage extends React.Component {
 
-    state = {
-        allBooks: [],
+    constructor(props) {
+        super(props)
+        this.state = {
+            allBooks: [],
+        }
     }
+
 
     onShelfChange = (book, toShelf) => {
         // console.log("toShelf:" + toShelf + '; book.title:' + book.title)
@@ -26,7 +30,11 @@ export default class BookListPage extends React.Component {
 
     updateAllData() {
         BooksAPI.getAll().then((books) => {
-            this.setState({allBooks: books})
+            if (Array.isArray(books)) {
+                this.setState({allBooks: books})
+            } else {
+                this.setState({allBooks: []})
+            }
         })
     }
 
@@ -36,14 +44,14 @@ export default class BookListPage extends React.Component {
                 <PageTitle text='MyReads'/>
                 <div className="list-books-content">
                     <div>
-                        <BookShelf shelfName='My Current Reading'
-                                   bookList={this.state.allBooks.filter((book) => book.shelf === 'currentlyReading')}
+                        <BookShelf shelf='My Current Reading'
+                                   books={this.state.allBooks.filter((book) => book.shelf === 'currentlyReading')}
                                    onShelfChange={this.onShelfChange}/>
-                        <BookShelf shelfName='Want to Read'
-                                   bookList={this.state.allBooks.filter((book) => book.shelf === 'wantToRead')}
+                        <BookShelf shelf='Want to Read'
+                                   books={this.state.allBooks.filter((book) => book.shelf === 'wantToRead')}
                                    onShelfChange={this.onShelfChange}/>
-                        <BookShelf shelfName='Read'
-                                   bookList={this.state.allBooks.filter((book) => book.shelf === 'read')}
+                        <BookShelf shelf='Read'
+                                   books={this.state.allBooks.filter((book) => book.shelf === 'read')}
                                    onShelfChange={this.onShelfChange}/>
                     </div>
                 </div>

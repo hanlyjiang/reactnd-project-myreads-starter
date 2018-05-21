@@ -4,23 +4,21 @@ import BookGrid from './BookGrid'
 import PropTypes from "prop-types";
 
 
-export default class BookShelf extends React.Component {
+export default function BookShelf(props) {
 
-    static propTypes = {
-        shelfName: PropTypes.string.isRequired,
-        bookList: PropTypes.array.isRequired,
-        onShelfChange: PropTypes.func.isRequired
-    }
-
-    render() {
-        const {shelfName: bookShelfName, bookList: books, onShelfChange} = this.props
-        return (
-            <div className="bookshelf">
-                <h2 className="bookshelf-title">{bookShelfName}</h2>
-                <div className="bookshelf-books">
-                    <BookGrid bookList={books} onShelfChange={onShelfChange}/>
-                </div>
+    const {shelf, books, onShelfChange} = props
+    return (
+        <div className="bookshelf">
+            <h2 className="bookshelf-title">{shelf}</h2>
+            <div className="bookshelf-books">
+                <BookGrid books={books} onShelfChange={onShelfChange}/>
             </div>
-        )
-    }
+        </div>
+    )
+}
+
+BookShelf.propTypes = {
+    shelf: PropTypes.string.isRequired,
+    books: PropTypes.array.isRequired,
+    onShelfChange: PropTypes.func.isRequired
 }

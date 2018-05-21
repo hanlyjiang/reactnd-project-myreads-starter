@@ -6,23 +6,33 @@ import BookGrid from "./widget/BookGrid";
 
 export default class SearchPage extends React.Component {
 
-    state = {
-        query: '',
-        queryResults: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            query: '',
+            queryResults: []
+        }
     }
 
     onQueryChange = (query) => {
         BooksAPI.search(query)
             .then((books) => {
-                this.setState({
-                    query: query,
-                    queryResults: books
-                })
+                if (Array.isArray(books)) {
+                    this.setState({
+                        query: query,
+                        queryResults: books
+                    })
+                } else {
+                    this.setState({
+                        query: query,
+                        queryResults: []
+                    })
+                }
             })
     }
 
-    onShelfChange = (book,toShelf) => {
-        console.log("Do nothing when in Search page ")
+    onShelfChange = (book, toShelf) => {
+        console.log("onShelfChange : Current page is SearchPage, will do nothing")
     }
 
     render() {
@@ -46,7 +56,7 @@ export default class SearchPage extends React.Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <BookGrid bookList={this.state.queryResults} onShelfChange={this.onShelfChange}/>
+                    <BookGrid books={this.state.queryResults} onShelfChange={this.onShelfChange}/>
                 </div>
             </div>
         )

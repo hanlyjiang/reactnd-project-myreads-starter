@@ -2,28 +2,32 @@ import React from 'react'
 import BookShelfChanger from "./BookShelfChanger";
 import PropTypes from 'prop-types';
 
-export default class Book extends React.Component {
+export default function Book(props) {
 
-    static propTypes = {
-        bookInfo: PropTypes.object.isRequired,
-        onShelfChange: PropTypes.func.isRequired
-    }
+    const {book, onShelfChange} = props
 
-    render() {
-        const {bookInfo, onShelfChange} = this.props
-        return (
-            <div className="book">
-                <div className="book-top">
-                    <div className="book-cover" style={{
-                        width: 128,
-                        height: 193,
-                        backgroundImage: `url(${bookInfo.imageLinks.smallThumbnail})`
-                    }}/>
-                    <BookShelfChanger shelfState={bookInfo.shelf} book={bookInfo} onShelfChange={onShelfChange}/>
-                </div>
-                <div className="book-title">{bookInfo.title}1776</div>
-                <div className="book-authors">{bookInfo.authors}David McCullough</div>
+    return (
+        <div className="book">
+            <div className="book-top">
+                <div className="book-cover" style={{
+                    width: 128,
+                    height: 193,
+                    backgroundImage: book.hasOwnProperty('imageLinks') ? `url(${book.imageLinks.smallThumbnail}):` : ''
+                }}/>
+                <BookShelfChanger shelf={book.shelf ? book.shelf : 'none'} book={book} onShelfChange={onShelfChange}/>
             </div>
-        )
-    }
+            <div className="book-title">{book.title}1776</div>
+            <div className="book-authors">{book.authors}David McCullough</div>
+        </div>
+    )
+}
+
+Book.propTypes = {
+    book: PropTypes.object.isRequired,
+    onShelfChange: PropTypes.func.isRequired
+}
+
+Book.componentDidCatch = (error, info) => {
+    // You can also log the error to an error reporting service
+    console.log(info)
 }
