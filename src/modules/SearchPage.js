@@ -15,7 +15,7 @@ export default class SearchPage extends React.Component {
     }
 
     onQueryChange = (query) => {
-        BooksAPI.search(query)
+        query.trim() === '' || BooksAPI.search(query)
             .then((books) => {
                 if (Array.isArray(books)) {
                     this.setState({
