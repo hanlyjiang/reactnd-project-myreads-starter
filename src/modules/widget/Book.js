@@ -16,7 +16,7 @@ export default function Book(props) {
                 }}/>
                 <BookShelfChanger shelf={book.shelf ? book.shelf : 'none'} book={book} onShelfChange={onShelfChange}/>
             </div>
-            <div className="book-title">{book.title}1776</div>
+            <div className="book-title">{book.title}</div>
             <div className="book-authors">{book.authors}David McCullough</div>
         </div>
     )

@@ -14,13 +14,32 @@ export default class SearchPage extends React.Component {
         }
     }
 
+    copyShelfStatus = (bookNoShelfStatus, allShelfBookList) => {
+        allShelfBookList.forEach((currentValue) => {
+            //do something
+            if(currentValue.id === bookNoShelfStatus.id){
+                bookNoShelfStatus.shelf = currentValue.shelf
+                return
+            }
+        })
+    }
+
     onQueryChange = (query) => {
+        this.setState({
+            query: query,
+            queryResults: []
+        })
         query.trim() === '' || BooksAPI.search(query)
             .then((books) => {
                 if (Array.isArray(books)) {
-                    this.setState({
-                        query: query,
-                        queryResults: books
+                    BooksAPI.getAll().then((allShelfBookList) => {
+                        for (let i = 0; i < books.length; i++) {
+                            this.copyShelfStatus(books[i], allShelfBookList)
+                        }
+                        this.setState({
+                            query: query,
+                            queryResults: books
+                        })
                     })
                 } else {
                     this.setState({
